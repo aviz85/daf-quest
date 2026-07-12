@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DAF QUEST - a SCUMM-style pixel adventure teaching Berakhot 2a">
+  <title>תעלומת השמע האבוד — ברכות דף ב</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <noscript>
+    <div class="noscript">
+      המשחק הזה דורש JavaScript. בלי זה — הארון יישאר נעול לנצח. גם התנא מסכים.
+    </div>
+  </noscript>
+
+  <div id="app">
+    <header id="titlebar">
+      <span class="title-deco" aria-hidden="true">✦</span>
+      <h1>תעלומת השמע האבוד — ברכות דף ב</h1>
+      <span class="title-deco" aria-hidden="true">✦</span>
+    </header>
+
+    <div id="stage">
+      <canvas id="game" width="320" height="180">הדפדפן שלך לא תומך ב-Canvas. חבל, יש כאן כוכבים יפים.</canvas>
+    </div>
+
+    <div id="status">&nbsp;</div>
+
+    <div id="verbs" role="toolbar" aria-label="פעולות">
+      <button type="button" class="verb" data-verb="look">הבט</button>
+      <button type="button" class="verb" data-verb="talk">דבר</button>
+      <button type="button" class="verb" data-verb="take">קח</button>
+      <button type="button" class="verb" data-verb="use">השתמש</button>
+    </div>
+
+    <div id="belt">
+      <div id="inventory" aria-label="תיק"></div>
+      <div id="hud" aria-label="חותמות"></div>
+    </div>
+
+    <footer id="footer">דף ב עמוד א · «מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית?»</footer>
+  </div>
+
+  <script src="js/sprites.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/scenes/square.js"></script>
+  <script src="js/scenes/beitmidrash.js"></script>
+  <script src="js/scenes/kohen.js"></script>
+  <script src="js/scenes/roof.js"></script>
+  <script src="js/scenes/road.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
