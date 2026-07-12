@@ -663,6 +663,9 @@
   var GAME = {
     state: { flags: {}, inventory: [], scene: '', seals: [] },
 
+    // scene registry, public per spec (also used by e2e tests)
+    scenes: scenes,
+
     registerScene: function (id, def) {
       if (!id || !def) return;
       scenes[id] = def;

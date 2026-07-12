@@ -6,3 +6,7 @@ node_modules/
 .wolf/cron-state.json
 .wolf/designqc-captures/
 .wolf/suggestions.json
+
+# tooling internals, not part of the game
+.wolf/
+.claude/
