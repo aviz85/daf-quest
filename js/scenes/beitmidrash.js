@@ -839,7 +839,7 @@
         },
         use: async function (g, itemId) {
           if (itemId === 'daf') {
-            await g.say('הדף הזה? אני גר בו. עמוד ב, שורה ראשונה. שכנים טובים.', { who: 'tanna', color: '#bcd4e8' });
+            await g.say('הדף הזה? אני גר בו. עמוד א, שורה ראשונה. שכנים טובים.', { who: 'tanna', color: '#bcd4e8' });
           } else {
             await g.playerSay('לא בטוח שאפשר להשתמש במשהו על רוח.');
           }
