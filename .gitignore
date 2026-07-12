@@ -10,3 +10,4 @@ node_modules/
 # tooling internals, not part of the game
 .wolf/
 .claude/
+.vercel
