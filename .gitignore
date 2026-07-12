@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+.env
+.wolf/hooks/
+.wolf/token-ledger.json
+.wolf/cron-state.json
+.wolf/designqc-captures/
+.wolf/suggestions.json
