@@ -264,8 +264,16 @@
   }
 
   function say(text, opts) {
-    // sequential queue — bubbles never overlap in time
-    sayChain = sayChain.then(function () { return showBubble(text, opts); });
+    // sequential queue — bubbles never overlap in time.
+    // Bind this line to the click/scene generation it was queued under: if the
+    // player abandons the conversation (clicks elsewhere, walks off, changes
+    // scene) before this line's turn comes up, skip it instead of showing a
+    // stale bubble from a room/character the player already left.
+    var seq = clickSeq;
+    sayChain = sayChain.then(function () {
+      if (seq !== clickSeq) return;
+      return showBubble(text, opts);
+    });
     return sayChain;
   }
 
@@ -440,6 +448,20 @@
   function runVerb(h, verb, itemId) {
     var fn = h ? h[verb] : null;
     var run;
+    // Lock input for the duration of the handler, same as cutscene(). Handlers
+    // that chain several g.say()/g.choose() calls (most talk handlers) don't
+    // wrap themselves in g.cutscene, which used to leave the canvas clickable
+    // the whole time — a second click on the same hotspot could kick off a
+    // fully concurrent second run of the handler, stacking two choice boxes
+    // and interleaving duplicate dialogue lines. Locking here means a click
+    // during a handler just skips the current bubble (like a cutscene),
+    // instead of starting a second, independent conversation.
+    inputLocked++;
+    if (stageEl) stageEl.classList.add('cutscene');
+    function unlock() {
+      inputLocked = Math.max(0, inputLocked - 1);
+      if (stageEl && inputLocked === 0) stageEl.classList.remove('cutscene');
+    }
     if (typeof fn === 'function') {
       run = Promise.resolve().then(function () {
         return verb === 'use' ? fn(gApi, itemId || null) : fn(gApi);
@@ -449,7 +471,7 @@
     }
     return run.catch(function (err) {
       try { console.error('handler failed:', h && h.id, verb, err); } catch (e2) { }
-    });
+    }).then(unlock, unlock);
   }
 
   function walkToHotspot(h, seq) {
@@ -461,6 +483,9 @@
 
   function handleClick(pt) {
     var seq = ++clickSeq;
+    // a new action means the player is abandoning whatever conversation was
+    // running — kill the bubble on screen immediately rather than let it hang.
+    if (dismissCurrentBubble) dismissCurrentBubble();
     var h = hitTest(pt);
     var afterAction = function () { renderHud(); renderInventory(); updateStatus(); };
 
@@ -538,6 +563,10 @@
       try { console.error('unknown scene:', sceneId); } catch (e) { }
       return Promise.resolve();
     }
+    // invalidate any dialogue still queued from the scene we're leaving, and
+    // kill whatever bubble is on screen so it can't bleed into the next room.
+    clickSeq++;
+    if (dismissCurrentBubble) dismissCurrentBubble();
     return fadeOut().then(function () {
       if (walk && walk.resolve) { walk.resolve(); walk = null; }
       GAME.state.scene = sceneId;
