@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DAF QUEST - a SCUMM-style pixel adventure teaching Pesachim 2a-2b">
+  <title>תעלומת האור האבוד — פסחים דף ב</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <noscript>
+    <div class="noscript">
+      המשחק הזה דורש JavaScript. בלי זה — המנורה תישאר כבויה. והיא כבר מספיק עצבנית.
+    </div>
+  </noscript>
+
+  <div id="app">
+    <header id="titlebar">
+      <span class="title-deco" aria-hidden="true">✦</span>
+      <h1>תעלומת האור האבוד — פסחים דף ב</h1>
+      <span class="title-deco" aria-hidden="true">✦</span>
+    </header>
+
+    <div id="stage">
+      <canvas id="game" width="320" height="180">הדפדפן שלך לא תומך ב-Canvas. חבל — יש כאן שמיים קרועים לשניים.</canvas>
+    </div>
+
+    <div id="status">&nbsp;</div>
+
+    <div id="verbs" role="toolbar" aria-label="פעולות">
+      <button type="button" class="verb" data-verb="look">הבט</button>
+      <button type="button" class="verb" data-verb="talk">דבר</button>
+      <button type="button" class="verb" data-verb="take">קח</button>
+      <button type="button" class="verb" data-verb="use">השתמש</button>
+    </div>
+
+    <div id="belt">
+      <div id="inventory" aria-label="תיק"></div>
+      <div id="hud" aria-label="חותמות"></div>
+    </div>
+
+    <footer id="footer">דף ב · «אוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ לְאוֹר הַנֵּר»</footer>
+  </div>
+
+  <script src="../../js/sprites.js"></script>
+  <script src="../../js/audio.js"></script>
+  <script src="../../js/engine.js"></script>
+  <script src="scenes/inn.js"></script>
+  <script src="scenes/cellar.js"></script>
+  <script src="scenes/observatory.js"></script>
+  <script src="scenes/summit.js"></script>
+  <script src="scenes/press.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
